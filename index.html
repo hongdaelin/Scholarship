@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>장학금 수여식 참석 조사</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <p class="eyebrow">12월 12일 장학금 수여식</p>
+      <h1>참석 여부 조사</h1>
+      <p class="lead">장학금 지급을 위해 아래 정보를 입력해 주세요. 입력하신 정보는 장학금 지급 및 행사 준비 목적으로만 사용됩니다.</p>
+    </header>
+
+    <div id="config-warning" class="notice notice-error" hidden>
+      Firebase 설정이 완료되지 않았습니다. <code>js/firebase-config.js</code> 파일을 수정해 주세요.
+    </div>
+
+    <form id="survey-form" class="card" novalidate>
+      <div class="field">
+        <label for="name">이름 <span class="req">*</span></label>
+        <input id="name" name="name" type="text" maxlength="30" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="age">나이 <span class="req">*</span></label>
+        <input id="age" name="age" type="number" inputmode="numeric" min="10" max="99" required>
+      </div>
+
+      <div class="field">
+        <label for="highSchool">출신 고등학교 <span class="req">*</span></label>
+        <input id="highSchool" name="highSchool" type="text" maxlength="50" placeholder="예) 한국고등학교" required>
+      </div>
+
+      <div class="field">
+        <label for="university">재학 중인 대학교 <span class="req">*</span></label>
+        <input id="university" name="university" type="text" maxlength="50" placeholder="예) 한국대학교" required>
+      </div>
+
+      <fieldset class="field">
+        <legend>12월 12일 참석 여부 <span class="req">*</span></legend>
+        <div class="choice-group">
+          <label class="choice"><input type="radio" name="attending" value="yes" required> 참석</label>
+          <label class="choice"><input type="radio" name="attending" value="no"> 불참</label>
+        </div>
+      </fieldset>
+
+      <div id="departure-section" class="field-group" hidden>
+        <div class="field">
+          <label for="departureProvince">출발 지역 (시·도) <span class="req">*</span></label>
+          <select id="departureProvince" name="departureProvince">
+            <option value="">선택해 주세요</option>
+            <option>서울특별시</option>
+            <option>부산광역시</option>
+            <option>대구광역시</option>
+            <option>인천광역시</option>
+            <option>광주광역시</option>
+            <option>대전광역시</option>
+            <option>울산광역시</option>
+            <option>세종특별자치시</option>
+            <option>경기도</option>
+            <option>강원특별자치도</option>
+            <option>충청북도</option>
+            <option>충청남도</option>
+            <option>전북특별자치도</option>
+            <option>전라남도</option>
+            <option>경상북도</option>
+            <option>경상남도</option>
+            <option>제주특별자치도</option>
+            <option>해외</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="departureDetail">상세 지역 (시·군·구)</label>
+          <input id="departureDetail" name="departureDetail" type="text" maxlength="50" placeholder="예) 수원시 영통구">
+        </div>
+      </div>
+
+      <p id="form-error" class="notice notice-error" hidden></p>
+
+      <button id="submit-btn" type="submit" class="btn btn-primary btn-block">제출하기</button>
+    </form>
+
+    <section id="done" class="card done" hidden>
+      <h2>제출이 완료되었습니다</h2>
+      <p>응답해 주셔서 감사합니다. 내용을 수정해야 하면 담당자에게 문의해 주세요.</p>
+      <button id="again-btn" type="button" class="btn">다른 응답 작성하기</button>
+    </section>
+  </main>
+
+  <script type="module" src="js/survey.js"></script>
+</body>
+</html>

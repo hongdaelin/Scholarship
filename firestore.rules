@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 관리자 이메일 목록: Firebase Authentication 에 등록한 관리자 이메일로 바꿔 주세요.
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email in ['admin@example.com'];
+    }
+
+    function isValidText(v, max) {
+      return v is string && v.size() > 0 && v.size() <= max;
+    }
+
+    function isValidResponse(d) {
+      return d.keys().hasOnly(['name', 'age', 'highSchool', 'university', 'attending',
+                               'departureProvince', 'departureDetail', 'createdAt'])
+        && isValidText(d.name, 30)
+        && d.age is int && d.age >= 10 && d.age <= 99
+        && isValidText(d.highSchool, 50)
+        && isValidText(d.university, 50)
+        && d.attending is bool
+        && d.departureProvince is string && d.departureProvince.size() <= 20
+        && d.departureDetail is string && d.departureDetail.size() <= 50
+        && (!d.attending || d.departureProvince.size() > 0)
+        && d.createdAt == request.time;
+    }
+
+    match /responses/{id} {
+      // 누구나 응답을 제출할 수 있지만, 조회·삭제는 관리자만 가능합니다.
+      allow create: if isValidResponse(request.resource.data);
+      allow read, delete: if isAdmin();
+      allow update: if false;
+    }
+  }
+}
