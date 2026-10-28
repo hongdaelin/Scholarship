@@ -4,7 +4,7 @@ GitHub Pages(웹페이지 호스팅) + Firebase(데이터 저장·관리자 로�
 
 | 페이지 | 주소 | 용도 |
 | --- | --- | --- |
-| 설문 페이지 | `https://<깃허브아이디>.github.io/Scholarship/` | 장학생이 이름·나이·출신 고교·대학교·참석 여부·출발 지역 입력 |
+| 설문 페이지 | `https://<깃허브아이디>.github.io/Scholarship/` | 장학생이 이름·나이·출신 고교·대학교 재학 여부(대학교·학과)·참석 여부·출발 지역 입력 |
 | 관리자 페이지 | `https://<깃허브아이디>.github.io/Scholarship/admin.html` | 응답을 사람별 한 줄로 확인, 검색·필터, **엑셀 다운로드**, 잘못된 응답 삭제 |
 
 엑셀 파일에는 `응답 목록` 시트와 `지역별 참석 인원` 시트가 함께 만들어집니다. 검색·필터를 걸어 둔 상태라면 화면에 보이는 응답만 내보냅니다.
@@ -19,6 +19,7 @@ js/firebase-config.js ★ Firebase 설정값을 붙여넣을 파일
 js/firebase.js        Firebase 초기화
 js/survey.js          설문 제출 로직
 js/admin.js           관리자 목록·엑셀 내보내기 로직
+js/regions.js         출발 지역(시·도, 시·군) 선택 목록
 firestore.rules       ★ Firebase 보안 규칙 (콘솔에 붙여넣기)
 ```
 

@@ -12,12 +12,15 @@ service cloud.firestore {
     }
 
     function isValidResponse(d) {
-      return d.keys().hasOnly(['name', 'age', 'highSchool', 'university', 'attending',
-                               'departureProvince', 'departureDetail', 'createdAt'])
+      return d.keys().hasOnly(['name', 'age', 'highSchool', 'enrolled', 'university', 'major',
+                               'attending', 'departureProvince', 'departureDetail', 'createdAt'])
         && isValidText(d.name, 30)
         && d.age is int && d.age >= 10 && d.age <= 99
         && isValidText(d.highSchool, 50)
-        && isValidText(d.university, 50)
+        && d.enrolled is bool
+        && d.university is string && d.university.size() <= 50
+        && d.major is string && d.major.size() <= 50
+        && (!d.enrolled || (d.university.size() > 0 && d.major.size() > 0))
         && d.attending is bool
         && d.departureProvince is string && d.departureProvince.size() <= 20
         && d.departureDetail is string && d.departureDetail.size() <= 50

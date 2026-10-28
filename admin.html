@@ -5,21 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>참석 조사 관리자</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main class="container container-wide">
-    <header class="page-header">
-      <p class="eyebrow">관리자 전용</p>
-      <h1>참석 조사 응답 현황</h1>
-    </header>
+  <header class="hero hero-compact">
+    <div class="container container-wide hero-row">
+      <div>
+        <span class="chip">관리자 전용</span>
+        <h1>참석 조사 응답 현황</h1>
+      </div>
+      <button id="logout-btn" type="button" class="btn btn-ghost" hidden>로그아웃</button>
+    </div>
+  </header>
 
+  <main class="container container-wide">
     <div id="config-warning" class="notice notice-error" hidden>
       Firebase 설정이 완료되지 않았습니다. <code>js/firebase-config.js</code> 파일을 수정해 주세요.
     </div>
 
     <form id="login-form" class="card narrow" hidden>
-      <h2>관리자 로그인</h2>
+      <h2 class="section-title">관리자 로그인</h2>
       <div class="field">
         <label for="email">이메일</label>
         <input id="email" type="email" autocomplete="username" required>
@@ -35,19 +42,19 @@
     <section id="dashboard" hidden>
       <div class="stats">
         <div class="stat"><span class="stat-label">전체 응답</span><span id="stat-total" class="stat-value">0</span></div>
-        <div class="stat"><span class="stat-label">참석</span><span id="stat-yes" class="stat-value">0</span></div>
+        <div class="stat stat-yes"><span class="stat-label">참석</span><span id="stat-yes" class="stat-value">0</span></div>
         <div class="stat"><span class="stat-label">불참</span><span id="stat-no" class="stat-value">0</span></div>
+        <div class="stat"><span class="stat-label">대학교 재학 중</span><span id="stat-enrolled" class="stat-value">0</span></div>
       </div>
 
       <div class="toolbar">
-        <input id="search" type="search" placeholder="이름, 학교, 지역 검색">
+        <input id="search" type="search" placeholder="이름, 학교, 학과, 지역 검색">
         <select id="filter">
           <option value="all">전체</option>
           <option value="yes">참석만</option>
           <option value="no">불참만</option>
         </select>
         <button id="export-btn" type="button" class="btn btn-primary">엑셀 다운로드</button>
-        <button id="logout-btn" type="button" class="btn">로그아웃</button>
       </div>
 
       <div class="table-wrap">
@@ -58,7 +65,9 @@
               <th>이름</th>
               <th>나이</th>
               <th>출신 고등학교</th>
-              <th>재학 중인 대학교</th>
+              <th>재학 여부</th>
+              <th>대학교</th>
+              <th>학과</th>
               <th>참석 여부</th>
               <th>출발 지역</th>
               <th>제출 일시</th>
