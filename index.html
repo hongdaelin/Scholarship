@@ -25,14 +25,14 @@
     <form id="survey-form" novalidate>
       <section class="card">
         <h2 class="section-title"><span class="step">1</span>기본 정보</h2>
-        <div class="grid grid-name">
+        <div class="grid">
           <div class="field">
             <label for="name">이름 <span class="req">*</span></label>
             <input id="name" name="name" type="text" maxlength="30" autocomplete="name" placeholder="홍길동" required>
           </div>
           <div class="field">
-            <label for="age">나이 <span class="req">*</span></label>
-            <input id="age" name="age" type="number" inputmode="numeric" min="10" max="99" placeholder="20" required>
+            <label for="phone">연락처 <span class="req">*</span></label>
+            <input id="phone" name="phone" type="tel" inputmode="numeric" maxlength="13" autocomplete="tel" placeholder="010-1234-5678" required>
           </div>
         </div>
         <div class="field">

@@ -12,10 +12,10 @@ service cloud.firestore {
     }
 
     function isValidResponse(d) {
-      return d.keys().hasOnly(['name', 'age', 'highSchool', 'enrolled', 'university', 'major',
+      return d.keys().hasOnly(['name', 'phone', 'highSchool', 'enrolled', 'university', 'major',
                                'attending', 'departureProvince', 'departureDetail', 'createdAt'])
         && isValidText(d.name, 30)
-        && d.age is int && d.age >= 10 && d.age <= 99
+        && d.phone is string && d.phone.matches('^01[016789]-[0-9]{3,4}-[0-9]{4}$')
         && isValidText(d.highSchool, 50)
         && d.enrolled is bool
         && d.university is string && d.university.size() <= 50
