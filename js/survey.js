@@ -47,6 +47,13 @@ form.addEventListener("change", (e) => {
   if (e.target.name in reveals) toggleReveal(e.target.name, e.target.value === "yes");
 });
 
+// 숫자만 남겨 010-1234-5678 형식으로 맞춥니다. 휴대전화 번호가 아니면 빈 문자열을 돌려줍니다.
+function formatPhone(raw) {
+  const digits = raw.replace(/\D/g, "");
+  const m = digits.match(/^(01[016789])(\d{3,4})(\d{4})$/);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : "";
+}
+
 function showError(message) {
   formError.textContent = message;
   formError.hidden = !message;
@@ -60,7 +67,7 @@ function readForm() {
 
   return {
     name: value("name"),
-    age: Number(value("age")),
+    phone: formatPhone(value("phone")),
     highSchool: value("highSchool"),
     enrolled,
     university: enrolled ? value("university") : "",
@@ -75,7 +82,7 @@ function readForm() {
 
 function validate(r) {
   if (!r.name) return "이름을 입력해 주세요.";
-  if (!Number.isInteger(r.age) || r.age < 10 || r.age > 99) return "나이를 올바르게 입력해 주세요. (10~99)";
+  if (!r.phone) return "휴대전화 번호를 올바르게 입력해 주세요. (예: 010-1234-5678)";
   if (!r.highSchool) return "출신 고등학교를 입력해 주세요.";
   if (!r.enrolledChosen) return "대학교 재학 여부를 선택해 주세요.";
   if (r.enrolled && !r.university) return "재학 중인 대학교를 입력해 주세요.";

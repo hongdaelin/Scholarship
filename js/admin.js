@@ -89,7 +89,7 @@ function visibleResponses() {
     if (filter === "yes" && !r.attending) return false;
     if (filter === "no" && r.attending) return false;
     if (!keyword) return true;
-    return [r.name, r.highSchool, r.university, r.major, departureText(r)]
+    return [r.name, r.phone, r.highSchool, r.university, r.major, departureText(r)]
       .some((v) => (v || "").toLowerCase().includes(keyword));
   });
 }
@@ -115,7 +115,7 @@ function render() {
     tr.append(
       cell(i + 1),
       cell(r.name),
-      cell(r.age),
+      cell(r.phone || ""),
       cell(r.highSchool),
       cell(isEnrolled(r) ? "재학 중" : "재학 중 아님"),
       cell(isEnrolled(r) ? r.university : "-"),
@@ -157,11 +157,11 @@ document.getElementById("export-btn").addEventListener("click", () => {
     return;
   }
 
-  const header = ["No.", "이름", "나이", "출신 고등학교", "재학 여부", "대학교", "학과", "참석 여부", "출발 지역(시·도)", "출발 지역(시·군)", "제출 일시"];
+  const header = ["No.", "이름", "연락처", "출신 고등학교", "재학 여부", "대학교", "학과", "참석 여부", "출발 지역(시·도)", "출발 지역(시·군)", "제출 일시"];
   const rows = list.map((r, i) => [
     i + 1,
     r.name,
-    r.age,
+    r.phone || "",
     r.highSchool,
     isEnrolled(r) ? "재학 중" : "재학 중 아님",
     isEnrolled(r) ? r.university : "",
@@ -172,7 +172,7 @@ document.getElementById("export-btn").addEventListener("click", () => {
     formatDate(r.createdAt),
   ]);
   const sheet = XLSX.utils.aoa_to_sheet([header, ...rows]);
-  sheet["!cols"] = [6, 10, 6, 20, 12, 20, 18, 10, 16, 20, 18].map((wch) => ({ wch }));
+  sheet["!cols"] = [6, 10, 15, 20, 12, 20, 18, 10, 16, 20, 18].map((wch) => ({ wch }));
   sheet["!autofilter"] = { ref: XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: rows.length, c: header.length - 1 } }) };
 
   const byRegion = {};
